@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,19 +22,23 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
-    private String lasName;
+    private String lastName;
 
     @ManyToMany(mappedBy = "authors")
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
 
     @Override
     public String toString() {
         return "Author{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
-                ", lasName='" + lasName + '\'' +
-                ", books=" + books +
+                ", lasName='" + lastName + '\'' +
                 '}';
+    }
+
+    public Author(String firstName, String lasName) {
+        this.firstName = firstName;
+        this.lastName = lasName;
     }
 
     @Override
